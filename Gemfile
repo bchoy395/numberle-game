@@ -1,3 +1,5 @@
+ruby File.read(".ruby-version").strip
+
 source "https://rubygems.org"
 
 # --- Core Framework ---
@@ -14,15 +16,17 @@ gem "stimulus-rails"
 
 # --- Deployment & Performance ---
 gem "bootsnap", require: false
+gem "ostruct"
 
 # --- Platform-specific ---
-gem "tzinfo-data", platforms: [ :windows, :jruby ]
+gem "tzinfo-data", platforms: %i[windows jruby]
 
 # --- Development & Test ---
 group :development, :test do
-  gem "debug", platforms: [ :mri, :windows ], require: "debug/prelude"
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
+  gem "dotenv-rails"
 end
 
 # --- Development Only ---
