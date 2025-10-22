@@ -1,0 +1,54 @@
+<div class="container">
+  <div class="card shadow">
+    <div class="card-body text-center my-5">
+      <h2 class="card-title">Numberle 🔢</h2>
+      <p class="d-none">The answer is: <%= session[:answer] %></p>
+
+      <turbo-frame id="numberle-frame" class="m-3">
+        <% session[:guesses].each do |guess| %>
+          <div class="row justify-content-center">
+            <% guess["feedback"].each_with_index do |feedback, i| %>
+              <%= text_field_tag nil, guess["value"][i],
+                class: "form-control form-control-lg m-1 text-center border-dark-subtle border-0 rounded-0 fw-bold guess-#{feedback || "gray"}",
+                style: "width: 3rem; height: 3rem;"
+              %>
+            <% end %>
+          </div>
+        <% end %>
+
+        <% if @guess == session[:answer] %>
+          <div class="row mt-3">
+            <div class="col-12">
+              <h2 class="text-success mb-3">🎉 You did it! 🎉</h2>
+              <%= link_to "Play again", root_path, class: "btn btn-success btn-lg" %>
+            </div>
+          </div>
+        <% else %>
+          <%= form_with url: guess_numberle_path, class: "row", data: { controller: "numberle" } do %>
+            <div class="col-12">
+              <div class="row justify-content-center mb-3">
+                <% 8.times do |i| %>
+                  <%= text_field_tag "guess[]", nil,
+                    autofocus: (i == 0),
+                    autocomplete: "off",
+                    class: "form-control form-control-lg m-1 text-center border-dark-subtle rounded-0 fw-bold",
+                    style: "width: 3rem; height: 3rem;",
+                    data: { numberle_target: "guess", action: "keydown->numberle#handleKeydown" }
+                  %>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="col-12">
+              <%= submit_tag "Guess", class: "btn btn-success btn-lg" %>
+            </div>
+          <% end %>
+        <% end %>
+      </turbo-frame>
+    </div>
+
+    <div class="card-footer text-center text-muted">
+      Made with ❤️ by Lily Brooks (Bribri)
+    </div>
+  </div>
+</div>
