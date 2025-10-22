@@ -13,6 +13,8 @@ gem "propshaft"
 gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
+gem "bootstrap", "~> 5.3"
+gem "dartsass-rails"
 
 # --- Deployment & Performance ---
 gem "bootsnap", require: false
