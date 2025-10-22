@@ -1,10 +1,10 @@
 <div class="container">
   <div class="card shadow">
-    <div class="card-body text-center my-5">
-      <h2 class="card-title">Numberle 🔢</h2>
+    <div id="scroll-container" class="card-body text-center my-4" style="max-height: 80vh;">
+      <h2 class="card-title mb-4">Numberle 🔢</h2>
       <p class="d-none">The answer is: <%= session[:answer] %></p>
 
-      <turbo-frame id="numberle-frame" class="m-3">
+      <turbo-frame id="numberle-frame">
         <% session[:guesses].each do |guess| %>
           <div class="row justify-content-center">
             <% guess["feedback"].each_with_index do |feedback, i| %>
@@ -19,7 +19,7 @@
         <% if @guess == session[:answer] %>
           <div class="row mt-3">
             <div class="col-12">
-              <h2 class="text-success mb-3">🎉 You did it! 🎉</h2>
+              <h3 class="text-success mb-3">🎉 You did it! 🎉</h3>
               <%= link_to "Play again", root_path, class: "btn btn-success btn-lg" %>
             </div>
           </div>

@@ -3,3 +3,10 @@ import "@hotwired/turbo-rails"
 import "@popperjs/core"
 import "bootstrap"
 import "controllers"
+
+document.addEventListener("turbo:frame-load", (event) => {
+  const scrollContainer = document.getElementById("scroll-container");
+  if (scrollContainer) {
+    scrollContainer.scrollTop = scrollContainer.scrollHeight;
+  }
+});
