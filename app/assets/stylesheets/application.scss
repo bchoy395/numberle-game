@@ -15,19 +15,55 @@
 
 .guess-green {
   background-color: #6AAA63 !important;
+  border-color: #6AAA63 !important;
   color: white !important;
 }
 
 .guess-yellow {
   background-color: #C9B458 !important;
+  border-color: #C9B458 !important;
   color: white !important;
 }
 
 .guess-gray {
   background-color: #787C7E !important;
+  border-color: #787C7E !important;
   color: white !important;
 }
 
 #scroll-container {
   overflow-y: auto;
+}
+
+.numberle-cell {
+  text-align: center;
+  border-radius: 0;
+  font-weight: bold;
+  padding: 0;
+
+  width: 3rem;
+  height: 3rem;
+  margin: 0.25rem;
+  font-size: 1.5rem;
+}
+
+@include media-breakpoint-down(sm) {
+  .numberle-cell {
+    width: 2rem;
+    height: 2rem;
+    margin: 0.15rem;
+    font-size: 1rem;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
 }

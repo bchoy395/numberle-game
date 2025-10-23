@@ -9,38 +9,36 @@
           <div class="row justify-content-center">
             <% guess["feedback"].each_with_index do |feedback, i| %>
               <%= text_field_tag nil, guess["value"][i],
-                class: "form-control form-control-lg m-1 text-center border-dark-subtle border-0 rounded-0 fw-bold guess-#{feedback || "gray"}",
-                style: "width: 3rem; height: 3rem;"
+                class: "numberle-cell form-control guess-#{feedback || "gray"}",
+                disabled: true
               %>
             <% end %>
           </div>
         <% end %>
 
         <% if @guess == session[:answer] %>
-          <div class="row mt-3">
+          <div class="row">
             <div class="col-12">
-              <h3 class="text-success mb-3">🎉 You did it! 🎉</h3>
-              <%= link_to "Play again", root_path, class: "btn btn-success btn-lg" %>
+              <h3 class="text-success m-3">🎉 You did it! 🎉</h3>
+              <%= link_to "Play again", root_path, class: "btn btn-success rounded-0" %>
             </div>
           </div>
         <% else %>
-          <%= form_with url: guess_numberle_path, class: "row", data: { controller: "numberle" } do %>
-            <div class="col-12">
-              <div class="row justify-content-center mb-3">
-                <% 8.times do |i| %>
-                  <%= text_field_tag "guess[]", nil,
-                    autofocus: (i == 0),
-                    autocomplete: "off",
-                    class: "form-control form-control-lg m-1 text-center border-dark-subtle rounded-0 fw-bold",
-                    style: "width: 3rem; height: 3rem;",
-                    data: { numberle_target: "guess", action: "keydown->numberle#handleKeydown" }
-                  %>
-                <% end %>
-              </div>
+          <%= form_with url: guess_numberle_path, data: { controller: "numberle" } do %>
+            <div class="row justify-content-center mb-3">
+              <% 8.times do |i| %>
+                <%= number_field_tag "guess[]", nil,
+                  autofocus: (i == 0),
+                  autocomplete: "off",
+                  class: "numberle-cell form-control border-dark-subtle",
+                  data: { numberle_target: "guess", action: "keydown->numberle#handleKeydown" }
+                %>
+              <% end %>
             </div>
-
-            <div class="col-12">
-              <%= submit_tag "Guess", class: "btn btn-success btn-lg" %>
+            <div class="row">
+              <div class="col-12">
+                <%= submit_tag "Guess", class: "btn btn-success rounded-0" %>
+              </div>
             </div>
           <% end %>
         <% end %>
