@@ -4,7 +4,7 @@ class NumberleController < ApplicationController
   end
 
   def guess
-    # session[:attempts] += 1
+    session[:attempts] += 1
     @guess = params[:guess].join
 
     feedback = compute_feedback(params[:guess], session[:answer])
@@ -19,7 +19,7 @@ class NumberleController < ApplicationController
 
   def reset_game!
     session[:answer] = Array.new(8) { rand(0..9).to_s }.join
-    # session[:attempts] = 0
+    session[:attempts] = 0
     session[:guesses] = []
   end
 

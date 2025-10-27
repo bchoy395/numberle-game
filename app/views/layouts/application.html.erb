@@ -1,26 +1,22 @@
 <!DOCTYPE html>
 <html class="h-100">
   <head>
-    <title><%= content_for(:title) || "Numberle Game" %></title>
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="turbo-cache-control" content="no-cache" />
+
+    <title><%= content_for(:title) || "Bribri Games" %></title>
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
-    <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+    <%= stylesheet_link_tag "application", media: "all", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-100 bg-body-tertiary">
-    <main class="h-100 d-flex align-items-center justify-content-center">
+  <body class="bg-body-tertiary m-3 m-sm-5 overflow-hidden" style="height: calc(100vh - 6rem);">
+    <main class="container h-100 p-0">
       <%= yield %>
     </main>
   </body>

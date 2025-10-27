@@ -1,10 +1,48 @@
-<div class="container">
-  <div class="card shadow">
-    <div id="scroll-container" class="card-body text-center my-4" style="max-height: 80vh;">
-      <h2 class="card-title mb-4">Numberle 🔢</h2>
-      <p class="d-none">The answer is: <%= session[:answer] %></p>
+<%= content_for :title, "Decryptle 🔢" %>
 
-      <turbo-frame id="numberle-frame">
+<div class="h-100 card shadow mx-auto" style="max-width: 40rem;">
+  <div class="card-body overflow-y-auto p-3">
+    <h2 class="card-title text-center mb-4">Decryptle 🔢</h2>
+
+    <div class="mb-4">
+      <button class="btn btn-sm btn-outline-secondary rounded-0 d-flex align-items-center gap-1 m-auto" data-bs-toggle="collapse" data-bs-target="#how-to-play">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle me-1" viewBox="0 0 16 16">
+          <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+          <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+        </svg>
+        How to Play
+      </button>
+      <div id="how-to-play" class="collapse small m-auto my-3" style="max-width: 25rem;">
+        <p class="text-muted text-center">
+          Guess the secret number in <strong>5</strong> tries or less to win the game.
+        </p>
+        <ol class="ps-3">
+          <li class="mb-2">
+            <strong>Enter a guess:</strong> Type one digit per box, then press <kbd>Enter</kbd>.
+          </li>
+          <li class="mb-2">
+            <strong>Check feedback:</strong> Each digit changes color.
+            <div class="ms-3 mt-1">
+              <div class="mb-1">🟩 <span class="text-success fw-bold">Green</span> - Correct digit, correct position</div>
+              <div class="mb-1">🟨 <span class="text-warning fw-bold">Yellow</span> - Correct digit, wrong position</div>
+              <div class="mb-1">⬜ <span class="text-secondary fw-bold">Gray</span> - Not in the number</div>
+            </div>
+          </li>
+          <li class="mb-2">
+            <strong>???</strong>
+          </li>
+          <li class="mb-2">
+            <strong>Profit:</strong> All boxes turn green. 🎉
+          </li>
+        </ol>
+        <p class="text-muted text-center">
+          💡 Tip: Think logically - the feedback applies to the whole guess, not each occurrence of a digit.
+        </p>
+      </div>
+    </div>
+
+    <turbo-frame id="numberle-frame">
+      <div class="mb-4">
         <% session[:guesses].each do |guess| %>
           <div class="row justify-content-center">
             <% guess["feedback"].each_with_index do |feedback, i| %>
@@ -18,9 +56,19 @@
 
         <% if @guess == session[:answer] %>
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 text-center">
               <h3 class="text-success m-3">🎉 You did it! 🎉</h3>
               <%= link_to "Play again", root_path, class: "btn btn-success rounded-0" %>
+            </div>
+          </div>
+        <% elsif session[:attempts] >= 5 %>
+          <div class="row">
+            <div class="col-12 text-center">
+              <div class="m-3">
+                <h3 class="text-danger fw-bold">Game over! 😞</h3>
+                <h6>The number was <%= session[:answer] %></h6>
+              </div>
+              <%= link_to "Try again", root_path, class: "btn btn-success rounded-0" %>
             </div>
           </div>
         <% else %>
@@ -36,17 +84,17 @@
               <% end %>
             </div>
             <div class="row">
-              <div class="col-12">
+              <div class="col-12 text-center">
                 <%= submit_tag "Guess", class: "btn btn-success rounded-0" %>
               </div>
             </div>
           <% end %>
         <% end %>
-      </turbo-frame>
-    </div>
+      </div>
+    </turbo-frame>
+  </div>
 
-    <div class="card-footer text-center text-muted">
-      Made with ❤️ by Lily Brooks (Bribri)
-    </div>
+  <div class="card-footer text-center text-muted">
+    Made with ❤️ by Lily Brooks (bribri)
   </div>
 </div>
